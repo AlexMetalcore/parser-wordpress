@@ -1,0 +1,44 @@
+#wpcontent {
+	background-color: #f1f1f1;
+}
+.content_count {
+	display: none;
+	font-weight: bold;
+	margin: 0 0px;
+}
+.loading {
+	display: none;
+	margin: 0 15px;
+	width: 40px;
+  position: relative;
+}
+#count {
+	display: inline;
+}
+.error_url {
+	display:block; 
+	color: red; 
+	font-weight: bold;
+}
+.time_script {
+	display: block;
+}
+#cate:hover {
+	cursor: pointer;
+}
+.empty_field {
+	margin-top: 20px;
+	font-weight: bold;
+	font-size: 18px;
+	position: relative;
+	display: block;
+}
+.img_amazon {
+	box-shadow: inset 0 0 0 1px rgba(0,0,0,.1); 
+	margin: 20px 0;
+	width: 127px;
+	height: 127px;
+}
+.img_center {
+	text-align: center;
+}
