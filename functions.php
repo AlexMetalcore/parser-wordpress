@@ -46,20 +46,7 @@
 	    $get_title_author_post = $wpdb->get_row("SELECT ID , post_title , post_author  FROM $wpdb->posts WHERE post_type = POST_TYPE AND post_title = '$names_ad' AND post_author = '$post_author' ");
 	    return $get_title_author_post;
 	}
-	function getGeoPosition($adress){
-	    $url_maps = "https://maps.google.com/maps/api/geocode/json?key=AIzaSyBpRFvYomx8_jJ2e2R6sCsGEUVkrpfohLc&address=" . urlencode($adress). "&sensor=true";
-	    $json = file_get_contents($url_maps);
-	    $data = json_decode($json, TRUE);
-	    if($data['status']=="OK"){
-	      $address_code = '["' . $data['results'][0][place_id] . '"]';
-	      $townstr = "[{" . '"lat"' . ':' . $data['results'][0][geometry][location][lat]. ',' . '"lng"' . ':' . $data['results'][0][geometry][location][lng]. "}]";
-	      $get_geo_data = array(
-	        'address' => $address_code, 
-	        'town' => $townstr
-	      );
-	    return $get_geo_data;
-	    }
-	}
+
 	function parser ($url, $start, $end , $category){
 	  if($start < $end)  {
 
@@ -105,9 +92,6 @@
 	          	$name  = trim($doc_item->find('.offer-sidebar__box--business-info-header > h4 > a')->text());
 	          }
 
-	          $town_new = getGeoPosition($town)['town'];
-	          $address_new = getGeoPosition($town)['address'];
-
 	          $user_exists = get_user_by('login', $new_tel);
 
 	          if (!$user_exists->ID && !empty($new_tel)) {
@@ -129,7 +113,7 @@
 	                    wp_set_post_terms($post_id, $category, CUSTOM_CAT_TYPE , false);
 
 	                    foreach ($img_array as $img) {
-	                    	$new_img = str_replace('https://img01-olxua.akamaized.net/img-olxua/' , "" , $img);
+	                    	$new_img = basename($img);
 	                        $attachment = array(
 	                            'post_author' => $user_id,
 	                            'post_mime_type' => 'image/jpeg',
@@ -144,25 +128,22 @@
 	                        wp_update_attachment_metadata($attachment_id, $attachment_data);
 	                    }
 	                    if (count($img_array) == 1) {
-	                      add_post_meta($post_id, 'img1', $upload_dir->url.'/' .str_replace('https://img01-olxua.akamaized.net/img-olxua/' , "" , $img_array[0]), true);
+	                      add_post_meta($post_id, 'img1', $upload_dir->url.'/' . basename($img_array[0]));
 	                    }
 	                    else if (count($img_array) == 2) {
-	                        add_post_meta($post_id, 'img1', $upload_dir->url.'/' .str_replace('https://img01-olxua.akamaized.net/img-olxua/' , "" , $img_array[0]), true);
-	                        add_post_meta($post_id, 'img2', $upload_dir->url.'/' .str_replace('https://img01-olxua.akamaized.net/img-olxua/' , "" , $img_array[1]), true);
+	                        add_post_meta($post_id, 'img1', $upload_dir->url.'/' .basename($img_array[0]));
+	                        add_post_meta($post_id, 'img2', $upload_dir->url.'/' .basename($img_array[1]));
 	                    }
 	                    else {
-	                        add_post_meta($post_id, 'img1', $upload_dir->url.'/' .str_replace('https://img01-olxua.akamaized.net/img-olxua/' , "" , $img_array[0]), true);
-	                        add_post_meta($post_id, 'img2', $upload_dir->url.'/' .str_replace('https://img01-olxua.akamaized.net/img-olxua/' , "" , $img_array[1]), true);
-	                        add_post_meta($post_id, 'img3', $upload_dir->url.'/' .str_replace('https://img01-olxua.akamaized.net/img-olxua/' , "" , $img_array[2]), true);
+	                        add_post_meta($post_id, 'img1', $upload_dir->url.'/' .basename($img_array[0]));
+	                        add_post_meta($post_id, 'img2', $upload_dir->url.'/' .basename($img_array[1]));
+	                        add_post_meta($post_id, 'img3', $upload_dir->url.'/' .basename($img_array[2]));
 	                    }
 
 	                    add_post_meta($post_id, 'cc_price', $price, true);
 	                    update_user_meta($user_id, 'nickname', $name);
 	                    update_user_meta($user_id, 'city_name', $town);
-	                    update_user_meta($user_id, 'phone', strip_tags($new_tel) , true);
-	                    add_post_meta($post_id, 'cc_locations', $town_new);
-	                    add_post_meta($post_id, 'cc_address_list', $address_new);
-	              }
+	                    update_user_meta($user_id, 'phone', strip_tags($new_tel) , true);	              }
 	              else {
 	                  $post_id = get_post($get_post_parse->ID);
 	                  wp_update_post($post_id);
@@ -199,24 +180,22 @@
 	                        wp_update_attachment_metadata($attachment_id, $attachment_data);
 	                    }
 	                    if (count($img_array) == 1) {
-	                      add_post_meta($post_id, 'img1', $upload_dir->url.'/' .str_replace('https://img01-olxua.akamaized.net/img-olxua/' , "" , $img_array[0]), true);
+	                      add_post_meta($post_id, 'img1', $upload_dir->url.'/' .basename($img_array[0]));
 	                    }
 	                    else if (count($img_array) == 2) {
-	                        add_post_meta($post_id, 'img1', $upload_dir->url.'/' .str_replace('https://img01-olxua.akamaized.net/img-olxua/' , "" , $img_array[0]), true);
-	                        add_post_meta($post_id, 'img2', $upload_dir->url.'/' .str_replace('https://img01-olxua.akamaized.net/img-olxua/' , "" , $img_array[1]), true);
+	                        add_post_meta($post_id, 'img1', $upload_dir->url.'/' .basename($img_array[0]));
+	                        add_post_meta($post_id, 'img2', $upload_dir->url.'/' .basename($img_array[1]));
 	                    }
 	                    else {
-	                        add_post_meta($post_id, 'img1', $upload_dir->url.'/' .str_replace('https://img01-olxua.akamaized.net/img-olxua/' , "" , $img_array[0]), true);
-	                        add_post_meta($post_id, 'img2', $upload_dir->url.'/' .str_replace('https://img01-olxua.akamaized.net/img-olxua/' , "" , $img_array[1]), true);
-	                        add_post_meta($post_id, 'img3', $upload_dir->url.'/' .str_replace('https://img01-olxua.akamaized.net/img-olxua/' , "" , $img_array[2]), true);
+	                        add_post_meta($post_id, 'img1', $upload_dir->url.'/' .basename($img_array[0]));
+	                        add_post_meta($post_id, 'img2', $upload_dir->url.'/' .basename($img_array[1]));
+	                        add_post_meta($post_id, 'img3', $upload_dir->url.'/' .basename($img_array[2]));
 	                    }
 
 	                    add_post_meta($post_id, 'cc_price', $price, true);
 	                    update_user_meta($user_exists->ID, 'nickname', $name);
 	                    update_user_meta($user_exists->ID, 'city_name', $town);
 	                    update_user_meta($user_exists->ID, 'phone', strip_tags($new_tel) , true);
-	                    add_post_meta($post_id, 'cc_locations', $town_new);
-	                    add_post_meta($post_id, 'cc_address_list', $address_new);
 	              }
 	              else {
 	                  $post_id = get_post($get_post_parse_author->ID);
@@ -240,31 +219,12 @@
 	}
 	function parser_admin () {
 	$categories = get_terms(array(
-	  'taxonomy'      => CUSTOM_CAT_TYPE,
+	  'taxonomy'      => 'product_cat',
 	  'orderby'       => 'id', 
 	  'order'         => 'ASC',
 	  'hide_empty'    => false, 
-	  'object_ids'    => null, 
-	  'include'       => array(),
-	  'exclude'       => array(), 
-	  'exclude_tree'  => array(), 
-	  'number'        => '', 
-	  'fields'        => 'all', 
-	  'count'         => false,
-	  'slug'          => '', 
 	  'parent'         => '',
-	  'hierarchical'  => true, 
-	  'child_of'      => 0, 
-	  'get'           => '', 
-	  'name__like'    => '',
-	  'pad_counts'    => false, 
-	  'offset'        => '', 
-	  'search'        => '', 
-	  'cache_domain'  => 'core',
-	  'name'          => '', 
-	  'childless'     => false,
-	  'update_term_meta_cache' => true,
-	  'meta_query'    => '',
+	  'hierarchical'  => true,
 	)); 
 	?>
 	  <h2><?php echo get_admin_page_title() ?></h2>

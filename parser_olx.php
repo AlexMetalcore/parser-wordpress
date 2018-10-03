@@ -1,11 +1,11 @@
 <?php
 /**
- * Plugin Name: Парсер OLX
- * Description: Парсер данних с категорій OLX
+ * Plugin Name: Парсер Wordpress Woocomerce
+ * Description: Парсер данних с сайтов в Wordpress на базе Woocomerce
  * Plugin URI:  https://ipnethost.kiev.ua/
  * Author URI:  https://ipnethost.kiev.ua/
  * Author:      Саша Александров
- * Version:     Версія плагіну, 1.1
+ * Version:     Версия плагина, 1.0
  */
 require __DIR__.'/functions.php';
 require __DIR__.'/phpQuery.php';
@@ -13,16 +13,14 @@ require __DIR__.'/phpQuery.php';
 
 if (!defined( 'ABSPATH' )){
 	header('HTTP/1.0 403 Forbidden');
-	exit('Запускати файли плагіну напряму  - не можна!.');
+	exit('Доступ запрещен!.');
 }
 
 add_action('admin_menu', 'check_parser_admin');
 
 function check_parser_admin(){
- 	$page_olx = add_menu_page('Парсинг контенту з сайту OLX', 'Парсер OLX', 'manage_options', 'parser-page', 'parser_admin', plugins_url( 'parser_olx/images/parse.png'),4);
+ 	$page_olx = add_menu_page('Парсинг контента с интернет магазина', 'Парсер Woocommerce', 'manage_options', 'parser-page', 'parser_admin', plugins_url( 'parser_olx/images/parse.png'),4);
  	add_action( 'admin_print_scripts-' . $page_olx, 'parser_olx_script' );
-	$amazon = add_submenu_page( 'parser-page', 'Загрузка фото на amazon', 'Загрузка фото на amazon', 'manage_options', 'amazon-page' , 'amazon_download', 4);	
-	add_action( 'admin_print_scripts-' . $amazon, 'parser_olx_script' );
 }
 
 function parser_olx_script () {
