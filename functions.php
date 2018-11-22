@@ -151,6 +151,9 @@
 	    	<input type="submit" class="btn btn-success button action" value="Получаем контент">
 	    	<img class="loading" src="<?php echo plugins_url('parser_olx/images/loader.gif');?>">
 	    	<div class="content_count">Прошло&nbsp;<div id="count">1</div>&nbsp;секунд</div>
+	    	<div class="col-md-4">
+				<span class="empty_field">Заполните поля</span>
+			</div>
 	    </form>	
 	  </div>
 	  <?php

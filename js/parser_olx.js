@@ -7,21 +7,31 @@ jQuery(document).ready(function () {
 			else {
 				return true;
 			}
-		});	
+		});
+		function notEmptyField (event) {
+			jQuery('.form-control').not('#cate').each(function() {
+				object_input = jQuery(this);
+				var input_value = object_input.val();
+				if(input_value.length == 0) {
+					event.preventDefault();
+					object_input.css('border' , '1px solid red');
+					jQuery(".empty_field").first().fadeIn(500);
+				}
+			});
+		}	
 		jQuery('.action').click(function (event){
 			var current = jQuery("#current").val();
 			var next = jQuery('#next').val();
 			if (current.length == 0 || next.length == 0 || current == 0){
 				event.preventDefault();
-				jQuery('#url , #current , #next').css('border' , '1px solid red');
-				jQuery('.empty_field').fadeOut(500);
+				notEmptyField (event);
 				setTimeout(function() {
 					jQuery(".empty_field").fadeOut(500);
-					jQuery('#url , #current , #next').css('border' , '');
+					jQuery('.form-control').not('#cate').css('border' , '');
 				},1000);
 			}
 				else {
-					jQuery('.btn-success').fadeOut(300);
+					jQuery('.action').fadeOut(300);
 					jQuery('.content_count , .loading').fadeIn(300, function() {
 						    jQuery('.content_count , .loading').css('display' , 'inline');
 					});
@@ -35,15 +45,7 @@ jQuery(document).ready(function () {
 		});
 
 		var field_option = function (e) {
-			jQuery('.form-control').each(function() {
-				object_input = jQuery(this);
-				var input_value = object_input.val();
-				if(input_value.length == 0) {
-					e.preventDefault();
-					object_input.css('border' , '1px solid red');
-					jQuery(".empty_field").first().fadeIn(500);
-				}
-			});
+			notEmptyField (event);
 			setTimeout(function() {
 				jQuery('.empty_field').fadeOut(500);
 				jQuery('.form-control').css('border' , '');
