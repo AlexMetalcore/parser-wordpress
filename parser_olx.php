@@ -8,8 +8,8 @@
  * Version:     Версия плагина, 1.0
  */
 require __DIR__.'/functions.php';
+require __DIR__.'/settings-parser.php';
 require __DIR__.'/phpQuery.php';
-//require __DIR__.'/S3.php';
 
 if (!defined( 'ABSPATH' )){
 	header('HTTP/1.0 403 Forbidden');
@@ -21,6 +21,8 @@ add_action('admin_menu', 'check_parser_admin');
 function check_parser_admin(){
  	$page_olx = add_menu_page('Парсинг контента с интернет магазина', 'Парсер Woocommerce', 'manage_options', 'parser-page', 'parser_admin', plugins_url( 'parser_olx/images/parse.png'),4);
  	add_action( 'admin_print_scripts-' . $page_olx, 'parser_olx_script' );
+ 	$settings = add_submenu_page( 'parser-page', 'Настройки парсера', 'Настройки парсера', 'manage_options', 'settings-page' , 'settings_parser', 4);	
+	add_action( 'admin_print_scripts-' . $settings, 'parser_olx_script' );
 }
 
 function parser_olx_script () {
@@ -30,9 +32,25 @@ function parser_olx_script () {
 	wp_enqueue_style('bootstrap-min' , plugins_url('/css/bootstrap.min.css' , __FILE__));
 }
 
+function parser_option_table () {
+   global $wpdb;
 
+   $table_name = $wpdb->prefix . "option_parser";
+   if($wpdb->get_var("show tables like '$table_name'") != $table_name) {
+      
+      $sql = "CREATE TABLE " . $table_name . " (
+		  id mediumint(9) NOT NULL AUTO_INCREMENT,
+		  option_name text NOT NULL,
+		  option_value text NOT NULL,
+		  UNIQUE KEY id (id)
+	);";
+      require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+      dbDelta($sql);
+   }
+}
 register_activation_hook(__FILE__, 'active_parser_olx');
-	add_action('admin_init', 'redirect_parser_olx');
+register_activation_hook(__FILE__, 'parser_option_table');
+add_action('admin_init', 'redirect_parser_olx');
 
 function active_parser_olx() {
     add_option('my_plugin_do_activation_redirect', true);

@@ -42,3 +42,22 @@
 .img_center {
 	text-align: center;
 }
+.margin-btn {
+	margin-bottom: 10px;
+}
+#save-option-parser {
+	outline: none;
+}
+.empty_field {
+	display: none;
+	color: red;
+}
+.delete-value {
+	width: 20px;
+    position: absolute;
+    right: -10px;
+    top: 42px;
+}
+.delete-value:hover {
+	cursor: pointer;
+}
