@@ -5,7 +5,7 @@ $array_data_options = getDataPrepare();
 $img = plugins_url('/images/delete-value.jpg' , __FILE__); ?>
 	<div class="container">
 		<div class="col-md-4">
-			<h2><?php echo get_admin_page_title() ?></h2>
+			<h2><?php echo get_admin_page_title();?></h2>
 		</div>
 		<form method="post" id="options-parser">
 		<?php if ($array_data_options):?>
@@ -53,8 +53,8 @@ $img = plugins_url('/images/delete-value.jpg' , __FILE__); ?>
 		</form>
 	</div>
 	<?php if(isset($_POST) && !empty($_POST['goods-field']) && !empty($_POST['name-goods-field']) && !empty($_POST['price-goods-field']) && !empty($_POST['desc-goods-field']) && !empty($_POST['img-goods-field'])): ?>
-		<?php saveDataOption($_POST); ?>
 		<?php header('Location: ' . $_SERVER['HTTP_REFERER']); ?>
+		<?php saveDataOption($_POST); ?>
 		<div class="alert alert-warning alert-dismissible" role="alert">
 		  <strong>Данные сохранены</strong>
 		  <button type="button" class="close" data-dismiss="alert" aria-label="Close">

@@ -33,7 +33,7 @@ jQuery(document).ready(function () {
 				else {
 					jQuery('.action').fadeOut(300);
 					jQuery('.content_count , .loading').fadeIn(300, function() {
-						    jQuery('.content_count , .loading').css('display' , 'inline');
+						jQuery('.content_count , .loading').css('display' , 'inline');
 					});
 					var updateTimer = function() {
 		  				var cell = document.getElementById('count');
@@ -45,7 +45,7 @@ jQuery(document).ready(function () {
 		});
 
 		var field_option = function (e) {
-			notEmptyField (event);
+			notEmptyField (e);
 			setTimeout(function() {
 				jQuery('.empty_field').fadeOut(500);
 				jQuery('.form-control').css('border' , '');
