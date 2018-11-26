@@ -32,24 +32,7 @@ function parser_script () {
 	wp_enqueue_style('bootstrap-min' , plugins_url('/css/bootstrap.min.css' , __FILE__));
 }
 
-function parser_option_table () {
-   global $wpdb;
-
-   $table_name = $wpdb->prefix . "option_parser";
-   if($wpdb->get_var("show tables like '$table_name'") != $table_name) {
-      
-      $sql = "CREATE TABLE " . $table_name . " (
-		  id mediumint(9) NOT NULL AUTO_INCREMENT,
-		  option_name text NOT NULL,
-		  option_value text NOT NULL,
-		  UNIQUE KEY id (id)
-	);";
-      require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
-      dbDelta($sql);
-   }
-}
 register_activation_hook(__FILE__, 'active_parser_olx');
-register_activation_hook(__FILE__, 'parser_option_table');
 add_action('admin_init', 'redirect_parser_olx');
 
 function active_parser_olx() {
