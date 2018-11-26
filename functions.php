@@ -102,3 +102,22 @@ function saveDataOption ($options = []) {
 	}
 	return false;
 }
+function getDataPrepare () {
+	$array_label = [
+		'Блок в котором находяться все товары',
+		'Блок с названием продукта',
+		'Блок с ценой',
+		'Блок с описанием товара',
+		'Блок с фото товара'
+	];
+	global $wpdb;
+	$table_name = $wpdb->prefix . "option_parser";
+	$get_all_options_parser = $wpdb->get_results("SELECT * FROM $table_name");
+	$array_data_options = [];
+	$count = 0;
+	foreach ($get_all_options_parser as $option) {
+		$option->name_label = $array_label[$count++];
+		$array_data_options[] = $option;
+	}
+	return $array_data_options;
+}

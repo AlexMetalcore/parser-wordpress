@@ -8,11 +8,10 @@ function settings_parser () { ?>
 		<?php endif;?>
 	<?php if($_GET['update'] == true): ?>
 	<div class="col-md-4 margin-btn">
-			<div class="alert alert-success notice is-dismissible" role="alert">
-			  <strong>Данные сохранены</strong>
-			  </button>
-			</div>
+		<div class="alert alert-success notice is-dismissible" role="alert">
+			<strong>Данные сохранены</strong>
 		</div>
+	</div>
 	<?php endif; ?>
 	<div class="container">
 		<div class="col-md-4">
@@ -21,7 +20,7 @@ function settings_parser () { ?>
 		<form method="post" id="options-parser">
 			<div class="col-md-4 margin-btn">
 				<label for="goods-field">Блок в котором находяться все товары</label>
-				<input type="text" name="goods-field" value="<?php echo form_option('goods-field'); ?>" id="goods-field" class="form-control" placeholder="<?php echo $placeholder; ?>">
+				<input type="text" name="goods-field" value="<?php echo get_option('goods-field'); ?>" id="goods-field" class="form-control" placeholder="<?php echo $placeholder; ?>">
 				<img src="<?php echo $img; ?>" class="delete-value"/>
 			</div>
 			<div class="col-md-4 margin-btn">
