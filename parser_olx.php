@@ -9,6 +9,7 @@
  */
 require __DIR__.'/functions.php';
 require __DIR__.'/settings-parser.php';
+require __DIR__. '/parser-page.php';
 require __DIR__.'/phpQuery.php';
 
 if (!defined( 'ABSPATH' )){

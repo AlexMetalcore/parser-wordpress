@@ -61,3 +61,21 @@
 .delete-value:hover {
 	cursor: pointer;
 }
+.notvaluezerro {
+	color: red;
+    font-weight: bold;
+}
+.action {
+	margin-top: 10px !important;
+}
+#form-get-content-parser > label {
+	top: 5px;
+    position: relative;
+}
+.fix-position-message {
+	padding-top: 5px !important;
+	padding-left: unset !important;
+}
+.notice-dismiss {
+	top: 5px;
+}
