@@ -2,7 +2,9 @@
 function settings_parser () { ?>
 <?php
 $array_data_options = getDataPrepare(); 
-$img = plugins_url('/images/delete-value.jpg' , __FILE__); ?>
+$img = plugins_url('/images/delete-value.jpg' , __FILE__); 
+$placeholder = "Введите класс или идентификатор"; ?>
+
 	<div class="container">
 		<div class="col-md-4">
 			<h2><?php echo get_admin_page_title();?></h2>
@@ -12,34 +14,34 @@ $img = plugins_url('/images/delete-value.jpg' , __FILE__); ?>
 		<?php foreach($array_data_options as $option): ?>
 			<div class="col-md-4 margin-btn">
 				<label for="<?php echo $option->option_name?>"><?php echo $option->name_label?></label>
-				<input type="text" name="<?php echo $option->option_name?>" value="<?php echo $option->option_value; ?>" id="<?php echo $option->option_name; ?>" class="form-control" placeholder="Введите класс или идентификатор">
+				<input type="text" name="<?php echo $option->option_name?>" value="<?php echo $option->option_value; ?>" id="<?php echo $option->option_name; ?>" class="form-control" placeholder="<?php $placeholder; ?>">
 				<img src="<?php echo $img; ?>" class="delete-value"/>
 			</div>
 		<?php endforeach; ?>
 		<?php else:?>
 			<div class="col-md-4 margin-btn">
 				<label for="goods-field">Блок в котором находяться все товары</label>
-				<input type="text" name="goods-field" value="" id="goods-field" class="form-control" placeholder="Введите класс или идентификатор">
+				<input type="text" name="goods-field" value="" id="goods-field" class="form-control" placeholder="<?php $placeholder; ?>">
 				<img src="<?php echo $img; ?>" class="delete-value"/>
 			</div>
 			<div class="col-md-4 margin-btn">
 				<label for="name-goods-field">Блок с названием продукта</label>
-				<input type="text" name="name-goods-field" value="" id="name-goods-field" class="form-control" placeholder="Введите класс или идентификатор">
+				<input type="text" name="name-goods-field" value="" id="name-goods-field" class="form-control" placeholder="<?php $placeholder; ?>">
 				<img src="<?php echo $img; ?>" class="delete-value"/>
 			</div>
 			<div class="col-md-4 margin-btn">
 				<label for="price-goods-field">Блок с ценой</label>
-				<input type="text" name="price-goods-field" value="" id="price-goods-field" class="form-control" placeholder="Введите класс или идентификатор">
+				<input type="text" name="price-goods-field" value="" id="price-goods-field" class="form-control" placeholder="<?php $placeholder; ?>">
 				<img src="<?php echo $img; ?>" class="delete-value"/>
 			</div>
 			<div class="col-md-4 margin-btn">
 				<label for="desc-goods-field">Блок с описанием товара</label>
-				<input type="text" name="desc-goods-field" value="" id="desc-goods-field" class="form-control" placeholder="Введите класс или идентификатор">
+				<input type="text" name="desc-goods-field" value="" id="desc-goods-field" class="form-control" placeholder="<?php $placeholder; ?>">
 				<img src="<?php echo $img; ?>" class="delete-value"/>
 			</div>
 			<div class="col-md-4 margin-btn">
 				<label for="img-goods-field">Блок с фото товара</label>
-				<input type="text" name="img-goods-field" value="" id="img-goods-field" class="form-control" placeholder="Введите класс или идентификатор">
+				<input type="text" name="img-goods-field" value="" id="img-goods-field" class="form-control" placeholder="<?php $placeholder; ?>">
 				<img src="<?php echo $img; ?>" class="delete-value"/>
 			</div>
 			<?php endif;?>
